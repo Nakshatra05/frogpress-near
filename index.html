@@ -19,7 +19,8 @@
           >FrogPress</a
         >
         <div class="navlinks">
-          <a href="/#rules">How it works</a
+          <a href="/#gallery-section">Editions</a
+          ><a href="/#exhibit">For venues</a><a href="/#rules">How it works</a
           ><a href="https://github.com/Nakshatra05/frogpress-near">GitHub ↗</a>
         </div>
         <a class="btn small" href="/studio">Open studio ↗</a>
@@ -31,8 +32,9 @@
           <div class="kicker"><i></i> MULTIPLAYER PIXEL MURAL</div>
           <h1>Small frog.<br /><em>Big ink.</em></h1>
           <p>
-            Print a pixel on a shared mural. Collect the artwork as a one-of-one
-            edition and pay its artists in $INK.
+            Make a mural together. Collect a moment as a one-of-one print. Hang
+            it on a wall, and visitors can scan its label to send ink to the
+            artists who drew it.
           </p>
           <div class="actions">
             <a class="btn green" href="/studio">Enter the studio <b>↗</b></a
@@ -61,6 +63,47 @@
         <span>✳ &nbsp; CLAIM INK</span><span>✳ &nbsp; PRINT PIXELS</span
         ><span>✳ &nbsp; PASS IT ON</span><span>✳ &nbsp; NEAR TESTNET</span>
       </div>
+      <section class="wrap archive" id="gallery-section">
+        <div class="kicker">PUBLIC EDITION ARCHIVE</div>
+        <h2>Fresh off the press.</h2>
+        <p>
+          Open a print to see who made it, who owns it, and exactly how its
+          artists share the ink.
+        </p>
+        <div class="archive-tools">
+          <span id="archive-status" role="status">Reading the archive…</span>
+          <div>
+            <button id="archive-newer" disabled>← Newer</button
+            ><button id="archive-older" disabled>Older →</button
+            ><button id="archive-retry" hidden>Retry</button>
+          </div>
+        </div>
+        <div id="gallery"></div>
+        <details class="curate">
+          <summary>Curate a projector show</summary>
+          <p>
+            Choose up to twelve editions for a rotating exhibition. Each slide
+            has a QR code to support its artists. Share the show URL with the
+            venue or open it fullscreen.
+          </p>
+          <form id="curate">
+            <label
+              >Exhibition title<input
+                id="curate-title"
+                maxlength="64"
+                value="FrogPress print club" /></label
+            ><label
+              >Edition numbers<input
+                id="curate-ids"
+                value="1,2"
+                required /></label
+            ><button class="btn" id="curate-button">Create show link ↗</button>
+          </form>
+          <span id="curate-status" role="status"></span>
+          <a id="curate-link" class="plain" hidden>Open exhibition ↗</a>
+          <button class="textbtn" id="curate-copy" hidden>Copy link</button>
+        </details>
+      </section>
       <section class="wrap rules" id="rules">
         <div class="kicker">FIELD MANUAL / HOW TO PLAY</div>
         <h2>Work the press.</h2>
@@ -89,6 +132,85 @@
               artists holding the most tiles in that print.
             </p>
           </article>
+        </div>
+      </section>
+      <section id="exhibit" class="exhibit">
+        <div class="wrap exhibit-grid">
+          <figure class="wall-sample">
+            <img src="/api/edition?id=1" alt="FrogPress edition number one" />
+            <figcaption>EDITION 001 / GALLERY PROOF</figcaption>
+          </figure>
+          <div>
+            <div class="kicker">FOR GALLERIES, MEETUPS &amp; PRINT CLUBS</div>
+            <h2>Take it off the screen.</h2>
+            <p>
+              Choose an edition for your event. Print its exhibition sheet and
+              hang it next to the work. Each sheet carries a QR code linked to
+              that edition’s artist credits.
+            </p>
+            <p>
+              A visitor can open the label on a phone, claim testnet ink and
+              support the original artists. Changing the NFT owner leaves the
+              artist split intact.
+            </p>
+            <a class="btn green" href="/edition/1#exhibition"
+              >Get an exhibition sheet ↗</a
+            >
+          </div>
+        </div>
+      </section>
+      <section class="wrap faq">
+        <div>
+          <div class="kicker">BEFORE YOU PRINT</div>
+          <h2>Inside the ink.</h2>
+          <a
+            class="plain"
+            href="https://testnet.nearblocks.io/address/frogpress-mwgyuaa4.testnet"
+            >Inspect the contract ↗</a
+          >
+        </div>
+        <div>
+          <details open>
+            <summary>Who gets paid for an edition?</summary>
+            <p>
+              The four registered artists with the most visible tiles at mint
+              time share four ink. With two artists, each receives two. The NFT
+              records the split. Later patron payments use those same
+              proportions, even if another player paints over the original
+              tiles.
+            </p>
+          </details>
+          <details>
+            <summary>What happens when I scan a wall label?</summary>
+            <p>
+              You can view the print and its credits immediately. To send ink,
+              create a free testnet player or use your existing one. The page
+              shows the amount for each artist before you sign.
+            </p>
+          </details>
+          <details>
+            <summary>Does this cost real money?</summary>
+            <p>
+              The public studio runs on NEAR testnet. The faucet funds your
+              dedicated account, and $INK is a testnet game token. Your browser
+              stores the player key. Clearing site data removes access to that
+              player.
+            </p>
+          </details>
+          <details>
+            <summary>What can someone verify independently?</summary>
+            <p>
+              The contract stores each edition’s original pixels and artist
+              allocation. Standard NEAR token transfers record the payments. The
+              public repository includes a live check for the deployed code hash
+              and edition data.
+            </p>
+            <a
+              class="plain"
+              href="https://github.com/Nakshatra05/frogpress-near#verify-independently"
+              >Run the verification ↗</a
+            >
+          </details>
         </div>
       </section>
     </main>
@@ -224,6 +346,90 @@
             ><a id="transfer-receipt" hidden>View transfer receipt ↗</a>
           </div>
         </article>
+      </div>
+      <section id="patrons" class="pull-panel" hidden>
+        <div>
+          <div class="kicker">PATRON DESK</div>
+          <h2>Support this print.</h2>
+          <p>
+            Send testnet ink to the original artists. Their shares follow the
+            edition, even after a transfer.
+          </p>
+          <p id="support-total"></p>
+          <p class="note" id="patron-account"></p>
+        </div>
+        <div>
+          <label for="patron-amount">PATRON AMOUNT</label
+          ><select id="patron-amount">
+            <option value="4">4 $INK</option>
+            <option value="8">8 $INK</option>
+            <option value="16">16 $INK</option>
+          </select>
+          <ul id="patron-split"></ul>
+          <button id="patron-pay" class="btn green" disabled>
+            Reading player…
+          </button>
+          <p id="patron-status" role="status"></p>
+          <a id="patron-receipt" class="plain" hidden>Transaction receipt ↗</a>
+        </div>
+      </section>
+      <section id="exhibition" class="exhibition-panel" hidden>
+        <div>
+          <div class="kicker">EXHIBITION SHEET</div>
+          <h2>Hang this edition.</h2>
+          <p>
+            Print an A5 sheet with the artwork, original artist credits and a
+            scannable link to this patron desk. Choose “Save as PDF” in the
+            print dialog for a digital copy.
+          </p>
+          <button class="btn pink" id="print-sheet">
+            Print exhibition sheet ↗
+          </button>
+        </div>
+        <img id="wall-qr" alt="QR code linking to this edition’s patron desk" />
+      </section>
+      <article id="paper-sheet" aria-hidden="true">
+        <div>FROGPRESS / COMMUNITY PRINT CLUB</div>
+        <h1 id="paper-title"></h1>
+        <img id="paper-art" alt="Edition artwork" />
+        <div class="sheet-bottom">
+          <div>
+            <b>Original artist credits</b>
+            <ul id="paper-credits"></ul>
+            <small id="paper-url"></small>
+          </div>
+          <img id="paper-qr" alt="Scan for artist credits and patronage" />
+        </div>
+        <p>Scan to support the artists with $INK on NEAR testnet.</p>
+      </article>
+    </main>
+    <main id="show-page" hidden>
+      <div class="show-top">
+        <a href="/#gallery-section">← FrogPress archive</a
+        ><span>LIVE EXHIBITION</span>
+      </div>
+      <h1 id="show-title">Exhibition</h1>
+      <div id="slide-status" role="status"></div>
+      <div id="slide-content" hidden>
+        <img id="slide-img" alt="The exhibited edition" />
+        <div>
+          <p id="slide-num"></p>
+          <h2 id="slide-name"></h2>
+          <h3>Original artists</h3>
+          <ul id="slide-artists"></ul>
+          <a id="slide-open"
+            ><img
+              id="slide-qr"
+              alt="Scan to support the original artists"
+            /><strong>Scan to support the artists ↗</strong></a
+          >
+        </div>
+      </div>
+      <div id="show-controls">
+        <button id="show-prev">← Previous</button
+        ><button id="show-pause">Pause rotation</button
+        ><button id="show-next">Next →</button
+        ><button id="show-full">Fullscreen</button>
       </div>
     </main>
     <footer>

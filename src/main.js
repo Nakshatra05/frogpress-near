@@ -18,3 +18,17 @@ if (/^\/edition\/[1-9]\d{0,15}$/.test(path)) {
     $("edition-status").textContent = "Unable to load edition.";
   });
 }
+if (path === "")
+  import("./gallery.js").catch(() => {
+    $("archive-status").textContent =
+      "The live archive could not load. Open edition #1 above.";
+  });
+if (path === "/show") {
+  $("landing").hidden = true;
+  $("show-page").hidden = false;
+  document.body.classList.add("projector");
+  import("./show.js").catch(() => {
+    $("slide-status").textContent =
+      "The exhibition could not load. Reload to retry.";
+  });
+}

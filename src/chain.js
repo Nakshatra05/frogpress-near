@@ -9,30 +9,7 @@ const keyStore = new keyStores.BrowserLocalStorageKeyStore(
 const slot = "frogpress:player:v1";
 const connection = connect({ networkId, nodeUrl: rpc, keyStore });
 export const currentId = () => localStorage.getItem(slot);
-export async function view(method, args = {}) {
-  const response = await fetch(rpc, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    signal: AbortSignal.timeout(18000),
-    body: JSON.stringify({
-      jsonrpc: "2.0",
-      id: "frogpress",
-      method: "query",
-      params: {
-        request_type: "call_function",
-        account_id: contract,
-        method_name: method,
-        args_base64: Buffer.from(JSON.stringify(args)).toString("base64"),
-        finality: "final",
-      },
-    }),
-  });
-  if (!response.ok) throw new Error("Testnet RPC unavailable. Try refreshing.");
-  const body = await response.json();
-  if (body.error || body.result?.error)
-    throw new Error("The testnet view failed. Try refreshing.");
-  return JSON.parse(Buffer.from(body.result.result).toString());
-}
+export { view } from "../shared/view.js";
 export async function join() {
   // Keep a pending key before calling the faucet so a network interruption is recoverable.
   const pending = slot + ":pending";

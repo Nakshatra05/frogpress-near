@@ -1,6 +1,7 @@
 //! A NEAR community print studio. The tile and profile prefixes preserve the first public deployment.
 mod editions;
 mod ink;
+mod patronage;
 use near_contract_standards::{
     fungible_token::{
         events::{FtBurn, FtMint},

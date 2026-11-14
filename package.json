@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "buffer": "6.0.3",
-    "near-api-js": "5.1.1"
+    "near-api-js": "5.1.1",
+    "qrcode": "^1.5.4"
   },
   "devDependencies": {
     "vite": "^7.2.0"

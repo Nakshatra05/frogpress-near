@@ -1,3 +1,4 @@
+import { exhibit } from "./exhibit.js";
 import { view, currentId, transact, assertAccountExists } from "./chain.js";
 import { editionSvg } from "../shared/art.js";
 const $ = (id) => document.getElementById(id);
@@ -30,6 +31,7 @@ async function load() {
   );
   $("proof-content").hidden = false;
   $("transfer-box").hidden = currentId() !== token.owner_id;
+  await exhibit(token, proof);
 }
 load().catch((e) => {
   $("edition-status").textContent = e.message;
