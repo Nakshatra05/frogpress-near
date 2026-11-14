@@ -62,3 +62,50 @@ assert.match(editionSvg(proof.pixels, "1"), /FROGPRESS/);
 console.log(
   "Verified deployed WASM hash, 256 on-chain tiles, token metadata and edition #1 with 4 INK in artist allocations.",
 );
+const [editionTwo, patronage] = await Promise.all([
+  view("nft_token", { token_id: "2" }),
+  view("get_patronage", { token_id: "2" }),
+]);
+assert.ok(patronage.payments >= 1 && patronage.delivered >= 8);
+const patron = "fp-ac1af7b3e3eb4b82b0.testnet";
+const res = await fetch(rpc, {
+  method: "POST",
+  headers: { "content-type": "application/json" },
+  signal: AbortSignal.timeout(20000),
+  body: JSON.stringify({
+    jsonrpc: "2.0",
+    id: "receipt",
+    method: "tx",
+    params: {
+      tx_hash: "87bipBWuX6Rbi2X2s41w7Xwh7T3mAD216fDpgU5hPzUw",
+      sender_account_id: patron,
+      wait_until: "FINAL",
+    },
+  }),
+});
+const { result } = await res.json();
+assert.equal(result.final_execution_status, "FINAL");
+assert.equal(result.transaction.receiver_id, contract);
+assert.equal(result.transaction.signer_id, patron);
+const transfers = result.receipts_outcome
+  .filter((r) => r.outcome.executor_id === contract)
+  .flatMap((r) => r.outcome.logs)
+  .filter((log) => log.startsWith("EVENT_JSON:"))
+  .map((log) => JSON.parse(log.slice(11)))
+  .filter((e) => e.standard === "nep141" && e.event === "ft_transfer")
+  .flatMap((e) => e.data);
+const expected = JSON.parse(editionTwo.metadata.extra).payouts;
+assert.equal(transfers.length, Object.keys(expected).length);
+for (const [artist, weight] of Object.entries(expected)) {
+  assert.ok(
+    transfers.some(
+      (t) =>
+        t.old_owner_id === patron &&
+        t.new_owner_id === artist &&
+        BigInt(t.amount) === BigInt(weight) * 2n,
+    ),
+  );
+}
+console.log(
+  "Verified edition #2 patron payment against its original artist shares and finalized NEP-141 transfer events.",
+);

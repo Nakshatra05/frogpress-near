@@ -986,3 +986,43 @@ footer b {
     width: 82px;
   }
 }
+.evidence {
+  display: grid;
+  grid-template-columns: 0.86fr 1.14fr;
+  gap: 6%;
+  padding-block: 50px;
+  align-items: center;
+}
+.evidence h2 {
+  font: clamp(38px, 4.6vw, 65px)/1 Archivo;
+  letter-spacing: -0.07em;
+  margin: 12px 0;
+}
+.evidence p {
+  line-height: 1.6;
+}
+.evidence figure {
+  margin: 0;
+  background: #ffe793;
+  border: 2px solid;
+  box-shadow: 5px 5px;
+  padding: 10px;
+}
+.evidence video {
+  width: 100%;
+  display: block;
+  background: #211f1c;
+}
+.evidence figcaption {
+  font: 12px Mono;
+}
+.evidence + .faq {
+  padding-top: 15px;
+}
+@media (max-width: 740px) {
+  .evidence {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding-block: 34px;
+  }
+}

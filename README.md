@@ -4,6 +4,16 @@
 
 [Open the studio](https://frogpress-near.vercel.app/studio) · [Inspect edition #1](https://frogpress-near.vercel.app/edition/1) · [Watch the 42-second demo](https://github.com/Nakshatra05/frogpress-near/raw/refs/heads/main/docs/demo.mp4) · [Live contract](https://testnet.nearblocks.io/address/frogpress-mwgyuaa4.testnet)
 
+## Exhibit a print and support its artists
+
+[Open a two-edition show](https://frogpress-near.vercel.app/show?editions=2,1&title=FrogPress%20Print%20Club) · [Open the patron desk](https://frogpress-near.vercel.app/edition/2#patrons) · [Watch the gallery walkthrough](https://frogpress-near.vercel.app/gallery-demo.mp4)
+
+A club can curate up to twelve minted editions from the landing page and share its projector URL. Slides rotate every fifteen seconds, with pause, manual navigation and fullscreen controls. Each slide carries a QR code. On the edition page, **Print exhibition sheet** produces a one-page A5 exhibition label with artwork, credits and the same scannable destination.
+
+Visitors can read credits without a player account. They can also create a testnet player at the patron desk, claim daily ink and send 4, 8 or 16 ink in the edition’s original proportions. The contract reads those proportions from the NFT and settles transfers atomically. It records the amount actually delivered, excluding a patron’s own retained share. If a recipient has unregistered from the ink contract, payment fails atomically. The expected payment count prevents replaying a stale payment instruction. Patronage works for editions minted before this upgrade.
+
+**Verified example.** Edition #2 had already transferred when a new visitor selected eight ink. The three artists received four, two and two; the collector and the current NFT owner at payment time were different accounts. The live check reads the original edition metadata and independently compares it to the three finalized NEP-141 transfer logs. [Payment receipt](https://testnet.nearblocks.io/txns/87bipBWuX6Rbi2X2s41w7Xwh7T3mAD216fDpgU5hPzUw) · [Earlier NFT transfer](https://testnet.nearblocks.io/txns/Cdz1FX11uUFBvip6e65rpVyjbRBUNuNQWpgdDSXPbiqT).
+
 ## Try it in a minute
 
 1. Open the studio and create a testnet player. A dedicated signing key is generated in your browser. The NEAR faucet provisions the account and testnet gas.
