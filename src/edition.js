@@ -1,4 +1,4 @@
-import { view } from "./chain.js";
+import { view, currentId, transact, assertAccountExists } from "./chain.js";
 import { editionSvg } from "../shared/art.js";
 const $ = (id) => document.getElementById(id);
 const id = location.pathname.split("/").filter(Boolean).pop();
@@ -34,7 +34,6 @@ async function load() {
 load().catch((e) => {
   $("edition-status").textContent = e.message;
 });
-import { currentId, transact, assertAccountExists } from "./chain.js";
 const transfer = $("transfer-edition");
 transfer.onsubmit = async (e) => {
   e.preventDefault();

@@ -74,9 +74,9 @@ function render() {
   $("join").hidden = !!id;
   $("wallet").hidden = !id;
   $("player").textContent = id || "Guest visitor";
-  $("join").disabled = busy || !board;
+  $("join").disabled = busy || fetching || !board;
   $("claim").disabled =
-    busy || !board || !player || player.last_claim === board.day;
+    busy || fetching || !board || !player || player.last_claim === board.day;
   $("claim").textContent =
     player && player.last_claim === board?.day
       ? "Daily ink claimed ✓"
@@ -102,11 +102,11 @@ function render() {
       ? "Choose a different color"
       : "Print " + colors[ink][0] + " · " + cost + " $INK";
   $("share").disabled = selected === null;
-  $("gift").disabled = busy || !player || !player.balance;
+  $("gift").disabled = busy || fetching || !player || !player.balance;
   $("refresh").disabled = busy || fetching;
   const collected = board?.stats.prints === board?.collected_revision;
   $("pull").disabled =
-    busy || !board || !player || player.balance < 4 || collected;
+    busy || fetching || !board || !player || player.balance < 4 || collected;
   $("pull").textContent = collected
     ? "Print a tile to unlock an edition"
     : "Collect edition · 4 $INK";
@@ -136,6 +136,7 @@ function render() {
 async function refresh() {
   if (fetching) return;
   fetching = true;
+  render();
   try {
     const id = currentId();
     const [nextBoard, nextPlayer] = await Promise.all([
@@ -182,6 +183,7 @@ async function action(pending, fn) {
     $("message").textContent = message;
   } catch (e) {
     $("message").textContent = explain(e);
+    if (e.hash) receipt(e.hash);
   } finally {
     try {
       await refresh();
@@ -249,8 +251,8 @@ setInterval(() => {
 
 $("pull").onclick = () => {
   const revision = board?.stats.prints;
-  $("edition-note").textContent = "Collecting the edition on NEAR…";
   action("Collecting on NEAR…", async () => {
+    $("edition-note").textContent = "Collecting the edition on NEAR…";
     try {
       const hash = await transact(
         "pull_edition",

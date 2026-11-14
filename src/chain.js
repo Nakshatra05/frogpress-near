@@ -95,9 +95,17 @@ export async function transact(methodName, args = {}, attachedDeposit = 0n) {
     throw new Error(
       "Transaction did not succeed. Refresh the board before retrying.",
     );
-  await (
-    await connection
-  ).connection.provider.txStatus(result.transaction.hash, id, "FINAL");
+  try {
+    await (
+      await connection
+    ).connection.provider.txStatus(result.transaction.hash, id, "FINAL");
+  } catch {
+    const pending = new Error(
+      "Your transaction was accepted. Check its receipt before retrying.",
+    );
+    pending.hash = result.transaction.hash;
+    throw pending;
+  }
   return result.transaction.hash;
 }
 

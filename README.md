@@ -2,7 +2,7 @@
 
 **A multiplayer print studio on NEAR.** Change a pixel with fungible ink. Pull the mural as a one-of-one NFT. The collector's ink goes to the artists whose marks survive on the canvas.
 
-[Open the studio](https://frogpress-near.vercel.app/studio) · [Inspect edition #1](https://frogpress-near.vercel.app/edition/1) · [Live contract](https://testnet.nearblocks.io/address/frogpress-mwgyuaa4.testnet)
+[Open the studio](https://frogpress-near.vercel.app/studio) · [Inspect edition #1](https://frogpress-near.vercel.app/edition/1) · [Watch the 42-second demo](https://github.com/Nakshatra05/frogpress-near/raw/refs/heads/main/docs/demo.mp4) · [Live contract](https://testnet.nearblocks.io/address/frogpress-mwgyuaa4.testnet)
 
 ## Try it in a minute
 
@@ -26,33 +26,34 @@ The underlying ledger is a deployed NEAR contract. The web app has no database o
 
 Node 22.12+ or 24, npm, and network access for live checks. No API keys or environment variables are needed.
 
-~~~sh
+```sh
 npm ci
 npm test
 npm run verify:live
 npm run dev
-~~~
+```
 
 Open the local URL printed by Vite. The development studio uses the same public testnet mural as production. For a production build, run `npm run build` and `npm run preview`. The Vercel deployment also serves the NFT media endpoint `/api/edition?id=1`; the edition page itself renders directly from on-chain data.
 
 The read-only live check compares the SHA-256 hash of the committed WASM to the code hash returned by NEAR. It also reads token metadata, the board and edition #1, checks the payout total and reconstructs the art. `npm test` checks raster coordinates, input validation and media route errors offline.
 
-| Demonstrated action | NEAR testnet receipt |
-| --- | --- |
-| Deploy the two token standards and migrate all existing player balances | [Upgrade](https://testnet.nearblocks.io/txns/mCgz5cipQWuikMGVTj4Sohk4fjgFVX7mCE7YrVzojoN) |
-| Claim 8 ink | [Claim](https://testnet.nearblocks.io/txns/6wXS2HdppEquyYAtcNzgiY5FJu3WvT725XPPE7rQ49HC) |
-| Print a pixel | [Print](https://testnet.nearblocks.io/txns/4mcpVwZ2oW1R31hDtEeQGHonXwWTpctGXNQp1oweS2sS) |
-| Send ink between two browser players | [Gift](https://testnet.nearblocks.io/txns/DnJepRj5sUQS27BB8HxKdSUUQqAg5EKV6uRjvNLQBgME) |
-| Collect edition #1 and distribute 2 ink to each of two artists | [Mint](https://testnet.nearblocks.io/txns/7BE2SEQ9S3DwdY8b9rf4KevgpTtei8eYADE8F5oAA6JH) |
+| Demonstrated action                                                     | NEAR testnet receipt                                                                            |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Deploy the two token standards and migrate all existing player balances | [Upgrade](https://testnet.nearblocks.io/txns/mCgz5cipQWuikMGVTj4Sohk4fjgFVX7mCE7YrVzojoN)       |
+| Claim 8 ink                                                             | [Claim](https://testnet.nearblocks.io/txns/6wXS2HdppEquyYAtcNzgiY5FJu3WvT725XPPE7rQ49HC)        |
+| Print a pixel                                                           | [Print](https://testnet.nearblocks.io/txns/4mcpVwZ2oW1R31hDtEeQGHonXwWTpctGXNQp1oweS2sS)        |
+| Send ink between two browser players                                    | [Gift](https://testnet.nearblocks.io/txns/DnJepRj5sUQS27BB8HxKdSUUQqAg5EKV6uRjvNLQBgME)         |
+| Collect edition #1 and distribute 2 ink to each of two artists          | [Mint](https://testnet.nearblocks.io/txns/7BE2SEQ9S3DwdY8b9rf4KevgpTtei8eYADE8F5oAA6JH)         |
+| Transfer edition #2 between testnet accounts                            | [NFT transfer](https://testnet.nearblocks.io/txns/Cdz1FX11uUFBvip6e65rpVyjbRBUNuNQWpgdDSXPbiqT) |
 
 ## Contract and hosting
 
 Rust source lives under `contract/src`. Build from the repository root with Rust 1.88.0 and the WASM target installed.
 
-~~~sh
+```sh
 rustup target add wasm32-unknown-unknown
 cargo build --manifest-path contract/Cargo.toml --locked --release --target wasm32-unknown-unknown
-~~~
+```
 
 The deployed binary is `artifacts/frogpress.wasm`. To run your own instance, deploy it to a new funded testnet contract account, then call `initialize` as that account with `{"previous_players":[]}`. Set the contract ID in `shared/network.js`, the explorer link in the HTML, and the media origin in `contract/src/editions.rs` before building a fork. The check for the original edition in `scripts/verify-live.js` targets this public deployment. The Vercel project uses the Vite preset and the committed routing configuration.
 

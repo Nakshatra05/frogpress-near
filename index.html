@@ -107,7 +107,7 @@
           <div id="board" aria-label="Shared mural"></div>
           <div class="panel-foot">
             <span>16 × 16 TILES</span
-            ><button id="refresh" class="textbtn">Refresh ↻</button>
+            ><button id="refresh" disabled class="textbtn">Refresh ↻</button>
           </div>
         </section>
         <aside class="panel controls">
@@ -120,10 +120,12 @@
               Your free testnet key stays in this browser. Clearing site data
               loses access. Use it for FrogPress only.
             </p>
-            <button id="join" class="btn green">Create testnet player ↗</button>
+            <button id="join" disabled class="btn green">
+              Create testnet player ↗
+            </button>
             <div id="wallet" hidden>
               <div class="balance"><b id="balance">—</b> $INK</div>
-              <button class="btn" id="claim">Claim daily ink</button>
+              <button class="btn" id="claim" disabled>Claim daily ink</button>
             </div>
             <hr />
             <label>SELECTED TILE</label
@@ -182,7 +184,7 @@
               step="1"
               required
               value="1" /></label
-          ><button class="btn" id="gift">Send gift ↗</button>
+          ><button class="btn" id="gift" disabled>Send gift ↗</button>
         </form>
       </details>
     </main>
