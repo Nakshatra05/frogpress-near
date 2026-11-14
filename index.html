@@ -1,14 +1,238 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f8f4e7"><title>FrogPress — The community pixel press</title><meta name="description" content="Claim daily ink, pick a square and print a permanent transaction on NEAR testnet. A multiplayer pixel mural."><link rel="icon" href="/frog.png"></head><body>
-<header><nav><a href="/" class="brand"><span class="logomark"><img src="/frog.png" alt=""></span>FrogPress</a><div class="navlinks"><a href="/#rules">How it works</a><a href="https://github.com/Nakshatra05/frogpress-near">GitHub ↗</a></div><a class="btn small" href="/studio">Open studio ↗</a></nav></header>
-<main id="landing">
-<div class="hero wrap"><div class="intro"><div class="kicker"><i></i> MULTIPLAYER PIXEL MURAL</div><h1>Small frog.<br><em>Big ink.</em></h1><p>One canvas, shared by everyone. Claim your daily ink, pick a pixel, and leave your mark on NEAR.</p><div class="actions"><a class="btn green" href="/studio">Enter the studio <b>↗</b></a><a class="plain" href="#rules">Read the rules ↓</a></div></div>
-<figure class="poster"><div class="poster-top"><span>FROGPRESS PRINT CLUB</span><span>FP—001</span></div><div class="poster-art"><span class="cross tl">+</span><span class="cross tr">+</span><div class="sun"></div><img src="/press-frog.png" alt="A lime-green pixel frog holding a pink ink roller"><span class="cross bl">+</span><span class="cross br">+</span></div><figcaption><strong>THE INK SLINGER</strong><span class="swatches"><i></i><i></i><i></i><i></i></span></figcaption></figure></div>
-<div class="ticker"><span>✳ &nbsp; CLAIM INK</span><span>✳ &nbsp; PRINT PIXELS</span><span>✳ &nbsp; PASS IT ON</span><span>✳ &nbsp; NEAR TESTNET</span></div>
-<section class="wrap rules" id="rules"><div class="kicker">FIELD MANUAL / HOW TO PLAY</div><h2>Work the press.</h2><div class="cards"><article><span class="glyph">✹</span><h3>Claim your ink</h3><p>Create a free testnet player. Collect 8 $INK each UTC day, or get an ink gift from a friend.</p></article><article><span class="glyph gridglyph">▦</span><h3>Pick your pixel</h3><p>A fresh tile costs 1 $INK. Overprinting someone’s color costs 3. Every print burns the ink.</p></article><article><span class="glyph">↗</span><h3>Leave a receipt</h3><p>Every mark records its printer on NEAR. Share your tile and watch what the next player does with it.</p></article></div></section></main>
-<main class="wrap studio" id="studio" hidden>
-<div class="kicker"><i></i> NEAR TESTNET / SHARED MURAL</div><h1>The studio.</h1><p class="lede">Choose a tile and an ink color to print on the shared canvas.</p>
-<div class="studio-layout"><section class="panel"><div class="panel-head"><strong>Community canvas</strong><span id="sync" role="status">Connecting…</span></div><div id="board" aria-label="Shared mural"></div><div class="panel-foot"><span>16 × 16 TILES</span><button id="refresh" class="textbtn">Refresh ↻</button></div></section>
-<aside class="panel controls"><div class="panel-head"><strong>Print desk</strong><span>✳</span></div><div class="desk"><label>PLAYER</label><strong id="player">Guest visitor</strong><p class="note" id="player-note">Your free testnet key stays in this browser. Use this player for FrogPress only.</p><button id="join" class="btn green">Create testnet player ↗</button><div id="wallet" hidden><div class="balance"><b id="balance">—</b> $INK</div><button class="btn" id="claim">Claim daily ink</button></div><hr><label>SELECTED TILE</label><strong id="position">Choose a tile</strong><p class="note" id="ownership"></p><label>INK COLOR</label><div id="palette"></div><button id="print" class="btn pink" disabled>Print tile</button><button id="share" class="textbtn" disabled>Copy tile link ↗</button><div id="message" role="status"></div><a id="receipt" hidden target="_blank" rel="noopener">View transaction ↗</a></div></aside></div>
-<div id="stats" class="stats"></div><details id="gifting"><summary>Gift ink to another player</summary><form id="gift-form"><label>Player account<input id="receiver" required maxlength="64" placeholder="player.testnet" autocomplete="off"></label><label>Ink amount<input id="amount" type="number" min="1" step="1" required value="1"></label><button class="btn" id="gift">Send gift ↗</button></form></details></main>
-<footer><div class="wrap"><b>FrogPress</b><span>Built on NEAR testnet</span><a href="https://testnet.nearblocks.io/address/frogpress-mwgyuaa4.testnet">Contract ↗</a></div></footer>
-<script type="module" src="/src/main.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f8f4e7" />
+    <title>FrogPress — The community pixel press</title>
+    <meta
+      name="description"
+      content="Claim daily ink, pick a square and print a permanent transaction on NEAR testnet. A multiplayer pixel mural."
+    />
+    <link rel="icon" href="/frog.png" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="/" class="brand"
+          ><span class="logomark"><img src="/frog.png" alt="" /></span
+          >FrogPress</a
+        >
+        <div class="navlinks">
+          <a href="/#rules">How it works</a
+          ><a href="https://github.com/Nakshatra05/frogpress-near">GitHub ↗</a>
+        </div>
+        <a class="btn small" href="/studio">Open studio ↗</a>
+      </nav>
+    </header>
+    <main id="landing">
+      <div class="hero wrap">
+        <div class="intro">
+          <div class="kicker"><i></i> MULTIPLAYER PIXEL MURAL</div>
+          <h1>Small frog.<br /><em>Big ink.</em></h1>
+          <p>
+            Print a pixel on a shared mural. Collect the artwork as a one-of-one
+            edition and pay its artists in $INK.
+          </p>
+          <div class="actions">
+            <a class="btn green" href="/studio">Enter the studio <b>↗</b></a
+            ><a class="plain" href="/edition/1">Explore edition #1 ↗</a>
+          </div>
+        </div>
+        <figure class="poster">
+          <div class="poster-top">
+            <span>FROGPRESS PRINT CLUB</span><span>FP—001</span>
+          </div>
+          <div class="poster-art">
+            <span class="cross tl">+</span><span class="cross tr">+</span>
+            <div class="sun"></div>
+            <img
+              src="/press-frog.png"
+              alt="A lime-green pixel frog holding a pink ink roller"
+            /><span class="cross bl">+</span><span class="cross br">+</span>
+          </div>
+          <figcaption>
+            <strong>THE INK SLINGER</strong
+            ><span class="swatches"><i></i><i></i><i></i><i></i></span>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="ticker">
+        <span>✳ &nbsp; CLAIM INK</span><span>✳ &nbsp; PRINT PIXELS</span
+        ><span>✳ &nbsp; PASS IT ON</span><span>✳ &nbsp; NEAR TESTNET</span>
+      </div>
+      <section class="wrap rules" id="rules">
+        <div class="kicker">FIELD MANUAL / HOW TO PLAY</div>
+        <h2>Work the press.</h2>
+        <div class="cards">
+          <article>
+            <span class="glyph">✹</span>
+            <h3>Claim your ink</h3>
+            <p>
+              Create a free testnet player. Collect 8 $INK each UTC day, or get
+              an ink gift from a friend.
+            </p>
+          </article>
+          <article>
+            <span class="glyph gridglyph">▦</span>
+            <h3>Pick your pixel</h3>
+            <p>
+              A fresh tile costs 1 $INK. Overprinting someone’s color costs 3.
+              Every print burns the ink.
+            </p>
+          </article>
+          <article>
+            <span class="glyph">↗</span>
+            <h3>Pull an edition</h3>
+            <p>
+              Freeze the mural as a collectible NFT. Your 4 $INK go to the
+              artists holding the most tiles in that print.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+    <main class="wrap studio" id="studio" hidden>
+      <div class="kicker"><i></i> NEAR TESTNET / SHARED MURAL</div>
+      <h1>The studio.</h1>
+      <p class="lede">
+        Choose a tile and an ink color to print on the shared canvas.
+      </p>
+      <div class="studio-layout">
+        <section class="panel">
+          <div class="panel-head">
+            <strong>Community canvas</strong
+            ><span id="sync" role="status">Connecting…</span>
+          </div>
+          <div id="board" aria-label="Shared mural"></div>
+          <div class="panel-foot">
+            <span>16 × 16 TILES</span
+            ><button id="refresh" class="textbtn">Refresh ↻</button>
+          </div>
+        </section>
+        <aside class="panel controls">
+          <div class="panel-head">
+            <strong>Print desk</strong><span>✳</span>
+          </div>
+          <div class="desk">
+            <label>PLAYER</label><strong id="player">Guest visitor</strong>
+            <p class="note" id="player-note">
+              Your free testnet key stays in this browser. Clearing site data
+              loses access. Use it for FrogPress only.
+            </p>
+            <button id="join" class="btn green">Create testnet player ↗</button>
+            <div id="wallet" hidden>
+              <div class="balance"><b id="balance">—</b> $INK</div>
+              <button class="btn" id="claim">Claim daily ink</button>
+            </div>
+            <hr />
+            <label>SELECTED TILE</label
+            ><strong id="position">Choose a tile</strong>
+            <p class="note" id="ownership"></p>
+            <label>INK COLOR</label>
+            <div id="palette"></div>
+            <button id="print" class="btn pink" disabled>Print tile</button
+            ><button id="share" class="textbtn" disabled>
+              Copy tile link ↗
+            </button>
+            <div id="message" role="status"></div>
+            <a id="receipt" hidden target="_blank" rel="noopener"
+              >View transaction ↗</a
+            >
+          </div>
+        </aside>
+      </div>
+      <div id="stats" class="stats"></div>
+      <section class="pull-panel">
+        <div>
+          <div class="kicker">NUMBERED EDITIONS / NEP-171</div>
+          <h2>Pull a print.</h2>
+          <p>
+            Collect this exact mural as a one-of-one NFT. The four registered
+            artists holding the most tiles split your 4 $INK. Each mural
+            revision can be collected once.
+          </p>
+          <p class="note">
+            The first claim attaches up to 0.02 testnet NEAR for storage. An
+            edition attaches up to 0.1. Excess is refunded.
+          </p>
+        </div>
+        <div class="pull-actions">
+          <button id="pull" class="btn green" disabled>
+            Collect edition · 4 $INK</button
+          ><a id="latest" class="plain" hidden>View latest edition ↗</a>
+          <p id="edition-note" role="status"></p>
+        </div>
+      </section>
+      <details id="gifting">
+        <summary>Gift ink to another player</summary>
+        <form id="gift-form">
+          <label
+            >Player account<input
+              id="receiver"
+              required
+              maxlength="64"
+              placeholder="player.testnet"
+              autocomplete="off" /></label
+          ><label
+            >Ink amount<input
+              id="amount"
+              type="number"
+              min="1"
+              step="1"
+              required
+              value="1" /></label
+          ><button class="btn" id="gift">Send gift ↗</button>
+        </form>
+      </details>
+    </main>
+    <main id="edition-page" class="wrap studio" hidden>
+      <div class="kicker"><i></i> FROGPRESS / EDITION ARCHIVE</div>
+      <h1 id="edition-title">The edition.</h1>
+      <p id="edition-status" class="lede">Reading the print from NEAR…</p>
+      <div id="proof-content" class="proof-grid" hidden>
+        <img
+          id="artwork"
+          alt="The immutable FrogPress mural at the moment of collection"
+        />
+        <article class="panel">
+          <div class="panel-head">Certificate of edition</div>
+          <div class="desk">
+            <label>CURRENT NFT OWNER</label><strong id="owner"></strong
+            ><label>ORIGINAL COLLECTOR</label><strong id="collector"></strong
+            ><label>ARTIST PAYOUTS</label>
+            <ul id="royalties"></ul>
+            <a id="download" class="btn pink">Download print ↓</a
+            ><a href="/studio" class="plain">Return to the live mural ↗</a>
+            <details id="transfer-box" hidden>
+              <summary>Transfer this NFT</summary>
+              <form id="transfer-edition">
+                <label
+                  >Recipient on NEAR testnet<input
+                    id="new-owner"
+                    required
+                    maxlength="64"
+                    placeholder="player.testnet" /></label
+                ><button id="transfer-button" class="btn">
+                  Transfer edition ↗
+                </button>
+              </form>
+            </details>
+            <small id="transfer-status" role="status"></small
+            ><a id="transfer-receipt" hidden>View transfer receipt ↗</a>
+          </div>
+        </article>
+      </div>
+    </main>
+    <footer>
+      <div class="wrap">
+        <b>FrogPress</b><span>Built on NEAR testnet</span
+        ><a
+          href="https://testnet.nearblocks.io/address/frogpress-mwgyuaa4.testnet"
+          >Contract ↗</a
+        >
+      </div>
+    </footer>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

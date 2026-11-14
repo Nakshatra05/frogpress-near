@@ -3,7 +3,18 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "scripts": {"dev":"vite","build":"vite build","preview":"vite preview","test":"node --test scripts/*.test.js"},
-  "dependencies": {"near-api-js":"5.1.1","buffer":"6.0.3"},
-  "devDependencies": {"vite":"^7.2.0"}
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node --test scripts/*.test.js",
+    "verify:live": "node scripts/verify-live.js"
+  },
+  "dependencies": {
+    "buffer": "6.0.3",
+    "near-api-js": "5.1.1"
+  },
+  "devDependencies": {
+    "vite": "^7.2.0"
+  }
 }
